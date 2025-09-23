@@ -1,7 +1,8 @@
 from rest_framework import routers
-from .api import UserViewSet
+from .api import UserViewSet, AdminLoginView
 from django.urls import path, include
 from .views import VerifyUserView
+
 
 router = routers.DefaultRouter()
 
@@ -9,5 +10,7 @@ router.register('users', UserViewSet, 'users')
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('users/verify/<uuid:code>/', VerifyUserView.as_view(), name='verify-user')
+    path('users/verify/<uuid:code>/', VerifyUserView.as_view(), name='verify-user'),
+    path('admin-login/', AdminLoginView.as_view(), name='admin-login')
+
 ]

@@ -7,6 +7,7 @@ class Participant(models.Model):
     joined_at = models.DateTimeField(auto_now_add=True)
     is_winner = models.BooleanField(default=False)
     participation_code = models.UUIDField(default=uuid.uuid4, editable=False)
+    won_at = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return f"{self.user.email} - {self.participation_code}"
