@@ -29,4 +29,3 @@ class VerifyUserView(APIView):
             return Response({"message": "Contraseña creada. Tu cuenta está activa."})
         except CustomUser.DoesNotExist:
             return Response({"error": "Código de verificación inválido."}, status=status.HTTP_400_BAD_REQUEST)
-        

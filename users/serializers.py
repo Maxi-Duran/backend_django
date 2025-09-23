@@ -14,4 +14,3 @@ class UserSerializer(serializers.ModelSerializer):
             user.password = password  #
         user.save()
         return user
-    
