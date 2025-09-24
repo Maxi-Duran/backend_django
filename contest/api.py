@@ -7,7 +7,7 @@ import random
 from django.core.mail import send_mail
 from django.conf import settings
 from django.utils import timezone
-
+from contest.tasks import enviar_correo_ganador
 
 class ParticipantViewSet(viewsets.ViewSet):
     permission_classes = [permissions.IsAuthenticated]
@@ -79,13 +79,7 @@ class WinnerSelectionViewSet(viewsets.ViewSet):
         winner.won_at = timezone.now()  # <-- Guardamos fecha del sorteo
         winner.save()
 
-        send_mail(
-            subject="¡Felicidades! Has ganado",
-            message=f"Hola {winner.user.name}, ¡felicidades! Has sido seleccionado como ganador del concurso. Disfruta de tus estadia de 2 noches todo pagado en nuestro hotel.",
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[winner.user.email],
-            fail_silently=False,
-        )
+        enviar_correo_ganador.delay(winner.user.name, winner.user.email)
 
         return Response({
             "id": winner.id,

@@ -19,13 +19,8 @@ class UserViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = serializer.save(is_verified=False)  
+      
 
-    
-        verification_link = f"http://localhost:3000/verify/{user.verification_code}/"
-
-   
-        enviar_correo_verificacion.delay(user.name, user.email, verification_link)
 
         try:
             user = serializer.save(is_verified=False)
@@ -33,6 +28,12 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response(
             {"error": "El correo ya está registrado."},
             status=status.HTTP_400_BAD_REQUEST)
+        
+    
+        verification_link = f"http://localhost:3000/verify/{user.verification_code}/"
+
+   
+        enviar_correo_verificacion.delay(user.name, user.email, verification_link)
         return Response(
         {"message": "Usuario creado. Revisa tu correo para verificar tu cuenta."},
         status=status.HTTP_201_CREATED
