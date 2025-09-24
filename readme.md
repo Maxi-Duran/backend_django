@@ -109,7 +109,6 @@ locust -f locustfile.py
 | Método | URL                                    | Descripción                                      |
 | ------ | -------------------------------------- | ------------------------------------------------ |
 | POST   | /users/                                | Registrar usuario. Envía correo de verificación. |
-| GET    | /users/                                | Listar usuarios (solo admin).                    |
 | GET    | /users/verify/[uuid\:code](uuid:code)/ | Verificar correo de usuario.                     |
 | POST   | /admin-login/                          | Login de administrador. Devuelve JWT.            |
 
@@ -144,7 +143,6 @@ Content-Type: application/json
 | Método | URL            | Descripción                                        |
 | ------ | -------------- | -------------------------------------------------- |
 | GET    | /participants/ | Lista participantes. Admin ve todos.               |
-| POST   | /participants/ | Crear participación (requiere usuario verificado). |
 
 **Ejemplo: Crear participación**
 
