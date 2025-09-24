@@ -1,8 +1,3 @@
-# Proyecto Django + Nuxt 3
-
-Este proyecto incluye un **backend en Django** y un **frontend en Nuxt 3**, orientado a la gestión de usuarios, participación en concursos y selección de ganadores.
-
----
 
 ## Backend (Django)
 
@@ -58,9 +53,21 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 ```
 
 > 🔹 Nota: Para Gmail necesitas generar una [contraseña de aplicación](https://support.google.com/accounts/answer/185833?hl=es).
-> Puedes usar tu correo por defecto si lo deseas.
+> Puedes usar mi correo por defecto.
 
-6. Ejecutar el servidor:
+6. Iniciar Redis con Docker:
+Abrir docker desktop
+```bash
+docker run -p 6379:6379 redis
+```
+
+7. Iniciar Celery:
+
+```bash
+python -m celery -A backend worker -l info --pool=solo
+```
+
+8. Ejecutar el servidor Django:
 
 ```bash
 python manage.py runserver
@@ -68,7 +75,6 @@ python manage.py runserver
 
 El backend estará disponible en: `http://localhost:8000`
 
----
 
 ### Testeo
 
